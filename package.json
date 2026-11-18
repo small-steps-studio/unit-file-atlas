@@ -1,0 +1,225 @@
+{
+  "name": "unit-file-atlas",
+  "displayName": "Unit File Atlas",
+  "description": "systemd unit files (.service, .timer, .socket): overview, syntax and value checks. Pro: hardening checklist and reliability review. Works offline.",
+  "version": "0.1.0",
+  "publisher": "SmallStepsStudio",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "icon": "media/icon.png",
+  "pricing": "Trial",
+  "homepage": "https://github.com/small-steps-studio/unit-file-atlas#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/small-steps-studio/unit-file-atlas"
+  },
+  "bugs": {
+    "url": "https://github.com/small-steps-studio/unit-file-atlas/issues"
+  },
+  "galleryBanner": {
+    "color": "#123b36",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.82.0"
+  },
+  "categories": [
+    "Linters",
+    "Other"
+  ],
+  "keywords": [
+    "systemd",
+    "systemd unit",
+    "unit file",
+    "service file",
+    "systemd service",
+    "systemd timer",
+    "timer unit",
+    "socket unit",
+    "linux service",
+    "daemon",
+    "systemctl",
+    "hardening",
+    "service hardening",
+    "security",
+    "NoNewPrivileges",
+    "ProtectSystem",
+    "restart policy",
+    "network-online",
+    "OnCalendar",
+    "devops",
+    "sysadmin",
+    "linux",
+    "unit file linter",
+    "unit file checker",
+    "ExecStart"
+  ],
+  "main": "./src/extension.js",
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "activationEvents": [],
+  "scripts": {
+    "test": "node scripts/run-tests.js",
+    "gate": "node scripts/release-gate.js",
+    "vscode:prepublish": "node scripts/release-gate.js --skip-tests",
+    "package": "npx --yes @vscode/vsce package --no-dependencies",
+    "package:local": "node scripts/package-local.js",
+    "check-vsix": "node scripts/check-vsix.js"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "unitFileAtlas.showOverview",
+        "title": "Unit File Atlas: Show Unit Overview",
+        "icon": "$(checklist)"
+      },
+      {
+        "command": "unitFileAtlas.showSyntax",
+        "title": "Unit File Atlas: Show Syntax Check"
+      },
+      {
+        "command": "unitFileAtlas.showValues",
+        "title": "Unit File Atlas: Show Value Check"
+      },
+      {
+        "command": "unitFileAtlas.showHardening",
+        "title": "Unit File Atlas: Show Service Hardening (Pro)"
+      },
+      {
+        "command": "unitFileAtlas.showReliability",
+        "title": "Unit File Atlas: Show Reliability Check (Pro)"
+      },
+      {
+        "command": "unitFileAtlas.openSample",
+        "title": "Unit File Atlas: Open Sample File"
+      },
+      {
+        "command": "unitFileAtlas.openSampleTimer",
+        "title": "Unit File Atlas: Open Sample Timer"
+      },
+      {
+        "command": "unitFileAtlas.openWalkthrough",
+        "title": "Unit File Atlas: Open Walkthrough"
+      },
+      {
+        "command": "unitFileAtlas.showDocumentation",
+        "title": "Unit File Atlas: Show Documentation"
+      },
+      {
+        "command": "unitFileAtlas.reportProblem",
+        "title": "Unit File Atlas: Report A Problem"
+      },
+      {
+        "command": "unitFileAtlas.buyPro",
+        "title": "Unit File Atlas: Buy Pro"
+      },
+      {
+        "command": "unitFileAtlas.enterKey",
+        "title": "Unit File Atlas: Enter Licence Key"
+      },
+      {
+        "command": "unitFileAtlas.licenceStatus",
+        "title": "Unit File Atlas: Show Licence Status"
+      },
+      {
+        "command": "unitFileAtlas.removeLicence",
+        "title": "Unit File Atlas: Remove Licence From This Machine"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "unitFileAtlas.showOverview",
+          "when": "resourceExtname == .service || resourceExtname == .timer || resourceExtname == .socket || resourceExtname == .path || resourceExtname == .mount || resourceExtname == .automount || resourceExtname == .swap || resourceExtname == .slice || resourceExtname == .scope || resourceExtname == .target",
+          "group": "navigation@90"
+        }
+      ]
+    },
+    "walkthroughs": [
+      {
+        "id": "gettingStarted",
+        "title": "Get started with Unit File Atlas",
+        "description": "Open a sample unit file, see its overview and checks, and try the Pro hardening checklist and reliability review in the free 14-day trial.",
+        "steps": [
+          {
+            "id": "unitFileAtlas.step.openSample",
+            "title": "Open a sample file",
+            "description": "Unit File Atlas reads systemd unit files: the [Unit], [Service], [Timer], [Socket] and [Install] sections that tell systemd what to run and when. Open the invented sample service (it has a few deliberate problems) to follow along, or open one of your own unit files.\n[Open Sample File](command:unitFileAtlas.openSample)",
+            "media": {
+              "markdown": "media/walkthrough/open-sample.md"
+            },
+            "completionEvents": [
+              "onCommand:unitFileAtlas.openSample"
+            ]
+          },
+          {
+            "id": "unitFileAtlas.step.free",
+            "title": "Run Show Unit Overview",
+            "description": "What the unit is, its sections, what it depends on and every command it runs. The report opens as a new Markdown document; your file is not changed.\n[Show Unit Overview](command:unitFileAtlas.showOverview)",
+            "media": {
+              "markdown": "media/walkthrough/free.md"
+            },
+            "completionEvents": [
+              "onCommand:unitFileAtlas.showOverview"
+            ]
+          },
+          {
+            "id": "unitFileAtlas.step.more",
+            "title": "Use the other free reports",
+            "description": "Every free report works without a key, an account or a network connection: Show Syntax Check, Show Value Check.\n[Show Syntax Check](command:unitFileAtlas.showSyntax)\n[Show Value Check](command:unitFileAtlas.showValues)",
+            "media": {
+              "markdown": "media/walkthrough/more.md"
+            },
+            "completionEvents": [
+              "onCommand:unitFileAtlas.showSyntax",
+              "onCommand:unitFileAtlas.showValues"
+            ]
+          },
+          {
+            "id": "unitFileAtlas.step.pro",
+            "title": "Try Pro free for 14 days",
+            "description": "The first Pro command you run starts a free 14-day trial on this computer, with no key and no network: Show Service Hardening, Show Reliability Check.\n[Show Service Hardening](command:unitFileAtlas.showHardening)",
+            "media": {
+              "markdown": "media/walkthrough/pro.md"
+            },
+            "completionEvents": [
+              "onCommand:unitFileAtlas.showHardening",
+              "onCommand:unitFileAtlas.showReliability"
+            ]
+          },
+          {
+            "id": "unitFileAtlas.step.licence",
+            "title": "Licence and help",
+            "description": "Buy Pro (Personal USD 19, Business USD 39 per user), enter a key, see the licence status, or report a problem.\n[Show Licence Status](command:unitFileAtlas.licenceStatus)\n[Report A Problem](command:unitFileAtlas.reportProblem)",
+            "media": {
+              "markdown": "media/walkthrough/licence.md"
+            },
+            "completionEvents": [
+              "onCommand:unitFileAtlas.licenceStatus"
+            ]
+          }
+        ]
+      }
+    ],
+    "configuration": {
+      "title": "Unit File Atlas",
+      "properties": {
+        "unitFileAtlas.maxFileSizeMB": {
+          "type": "number",
+          "default": 50,
+          "minimum": 0.1,
+          "maximum": 50,
+          "markdownDescription": "Largest file (in MB) a report reads, up to 50 MB (VS Code passes files only up to 50 MB to extensions). Larger files are refused with a message."
+        },
+        "unitFileAtlas.openReportsAsPreview": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Open each report in the Markdown preview as well as in a new editor."
+        }
+      }
+    }
+  }
+}
