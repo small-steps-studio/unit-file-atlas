@@ -1,0 +1,21 @@
+# feed-importer.service (invented example)
+[Unit]
+Description=feed importer service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+DynamicUser=yes
+WorkingDirectory=/srv/feed-importer
+ExecStart=/usr/bin/feed-importer \
+  --config /etc/feed-importer/config.toml \
+  --port 8007
+Restart=on-abnormal
+RestartSec=1min 30s
+ProtectControlGroups=yes
+Type=dbus
+
+[Install]
+WantedBy=multi-user.target

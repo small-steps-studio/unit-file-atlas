@@ -1,0 +1,27 @@
+# backup-runner.service (invented example)
+[Unit]
+Description=backup runner service
+After=network-online.target
+Wants=network-online.target
+Requires=redis.service
+
+[Service]
+Type=idle
+User=svc-backup
+WorkingDirectory=/srv/backup-runner
+ExecStart=/usr/bin/backup-runner \
+  --config /etc/backup-runner/config.toml \
+  --port 8016
+Restart=on-failure
+TimeoutStartSec=forever
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+NoNewPrivileges=maybe
+
+[Install]
+WantedBy=multi-user.target

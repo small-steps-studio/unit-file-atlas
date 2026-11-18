@@ -1,0 +1,25 @@
+# report-worker.service (invented example)
+[Unit]
+Description=report worker service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=idle
+User=svc-report
+WorkingDirectory=/srv/report-worker
+ExecStartPre=/usr/bin/test -f /etc/report-worker/config.toml
+ExecStart=/usr/bin/report-worker --port 8001
+ExecStart=/usr/bin/report-worker-second
+TimeoutStartSec=30s
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+NoNewPrivileges=maybe
+Type=idle
+
+[Install]
+WantedBy=multi-user.target

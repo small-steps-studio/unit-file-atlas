@@ -1,0 +1,10 @@
+[Unit]
+Description=Timer reset
+
+[Timer]
+OnCalendar=daily
+OnCalendar=
+Persistent=true
+
+[Install]
+WantedBy=timers.target

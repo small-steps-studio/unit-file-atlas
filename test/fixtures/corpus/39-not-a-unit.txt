@@ -1,0 +1,2 @@
+This is a plain note, not a unit file.
+It has two lines.

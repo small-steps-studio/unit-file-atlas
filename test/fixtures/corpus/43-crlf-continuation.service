@@ -1,0 +1,13 @@
+[Unit]
+Description=Report worker
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/report-worker \
+  --queue nightly \
+  --threads 4
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,5 @@
+[Unit]
+Description=Watch the spool folder
+
+[Path]
+PathChanged=/var/spool/inbox

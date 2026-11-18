@@ -1,0 +1,5 @@
+[Service]
+ExecStart=/usr/bin/a
+PrivateTmp=sometimes
+ProtectControlGroups=private
+ProtectKernelTunables=disconnected

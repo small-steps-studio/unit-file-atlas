@@ -1,0 +1,23 @@
+[Unit]
+Description=Merged sections
+After=network-online.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/daemon
+
+[Unit]
+Wants=network-online.target
+Description=Merged sections again.
+
+[Service]
+Restart=on-failure
+RestartSec=4s
+PIDFile=/run/daemon.pid
+Type=forking
+
+[Install]
+WantedBy=multi-user.target
+
+[Install]
+Alias=daemon-alias.service

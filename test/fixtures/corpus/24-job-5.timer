@@ -1,0 +1,8 @@
+[Unit]
+Description=Nightly metrics-agent run
+
+[Timer]
+OnCalendar=daily
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,10 @@
+[Service]
+ExecStart=/usr/bin/app
+RestartSec=1.s
+TimeoutStartSec=.5s
+TimeoutStopSec=-5s
+WatchdogSec=5 fortnights
+TimeoutSec=Infinity
+OnBootSec=1m in
+OnUnitActiveSec=s
+OnActiveSec=1,5s

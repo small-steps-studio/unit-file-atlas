@@ -1,0 +1,13 @@
+[Unit]
+Description=Webhook gateway
+After=network-online.target.wants
+After=my-network-online.target
+Wants=network-online.target.d
+
+[Service]
+ExecStart=/usr/bin/gateway
+Restart=always
+RestartSec=1s
+
+[Install]
+WantedBy=multi-user.target

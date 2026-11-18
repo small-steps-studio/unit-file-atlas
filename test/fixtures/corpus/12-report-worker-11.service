@@ -1,0 +1,19 @@
+# report-worker.service (invented example)
+[Unit]
+Description=report worker service
+After=network-online.target
+Wants=network-online.target
+Requires=redis.service
+
+[Service]
+Type=notify
+User=root
+WorkingDirectory=/srv/report-worker
+ExecStart=/usr/bin/report-worker --port 8011
+ExecStart=/usr/bin/report-worker-second
+Restart=always
+TimeoutStartSec=30s
+RestrictRealtime=yes
+
+[Install]
+WantedBy=multi-user.target

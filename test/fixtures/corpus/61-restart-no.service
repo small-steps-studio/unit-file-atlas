@@ -1,0 +1,10 @@
+[Unit]
+Description=No restart
+
+[Service]
+ExecStart=/usr/bin/a
+Restart=no
+RestartSec=bogus
+
+[Install]
+WantedBy=multi-user.target

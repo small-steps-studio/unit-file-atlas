@@ -1,0 +1,10 @@
+[Unit]
+Description=Bad types
+
+[Service]
+Type=ext4
+Restart=sometimes
+ExecStart=/usr/bin/x
+
+[Install]
+WantedBy=multi-user.target

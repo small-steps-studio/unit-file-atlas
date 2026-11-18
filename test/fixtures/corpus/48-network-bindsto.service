@@ -1,0 +1,12 @@
+[Unit]
+Description=Feed importer
+After=network-online.target
+BindsTo=network-online.target
+
+[Service]
+ExecStart=/usr/bin/importer
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

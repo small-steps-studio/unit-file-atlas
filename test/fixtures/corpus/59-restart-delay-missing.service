@@ -1,0 +1,9 @@
+[Unit]
+Description=Restart delay missing
+
+[Service]
+ExecStart=/usr/bin/a
+Restart=on-success
+
+[Install]
+WantedBy=multi-user.target

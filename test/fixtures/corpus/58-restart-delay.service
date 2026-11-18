@@ -1,0 +1,10 @@
+[Unit]
+Description=Restart delay
+
+[Service]
+ExecStart=/usr/bin/a
+Restart=on-abnormal
+RestartSec=10x
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=ExecStart reset
+
+[Service]
+ExecStart=/usr/bin/one
+ExecStart=
+ExecStart=/usr/bin/two
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

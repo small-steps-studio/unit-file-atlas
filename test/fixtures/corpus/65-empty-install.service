@@ -1,0 +1,11 @@
+[Unit]
+Description=Install without a target
+
+[Service]
+ExecStart=/usr/bin/a
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=
+Alias=

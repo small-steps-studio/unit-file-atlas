@@ -1,0 +1,11 @@
+[Unit]
+Description=Scratch swap
+
+[Swap]
+What=/dev/disk/by-label/scratch
+Type=swap
+Restart=whenever
+TimeoutSec=90
+
+[Install]
+WantedBy=swap.target

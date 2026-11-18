@@ -1,0 +1,7 @@
+[Timer]
+OnBootSec=10µs
+OnUnitActiveSec=1.5h
+AccuracySec=1 minute 20 sec
+RandomizedDelaySec=2d 3h
+OnStartupSec=infinity
+OnActiveSec=1 y

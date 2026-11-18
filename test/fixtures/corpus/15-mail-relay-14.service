@@ -1,0 +1,16 @@
+# mail-relay.service (invented example)
+[Unit]
+Description=mail relay service
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/srv/mail-relay
+ExecStart=/usr/bin/mail-relay --port 8014
+ExecStart=/usr/bin/mail-relay-cleanup
+TimeoutStartSec=forever
+NoNewPrivileges=yes
+Type=simple
+
+[Install]
+WantedBy=multi-user.target

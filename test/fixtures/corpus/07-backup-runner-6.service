@@ -1,0 +1,20 @@
+# backup-runner.service (invented example)
+[Unit]
+Description=backup runner service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/srv/backup-runner
+ExecStartPre=/usr/bin/test -f /etc/backup-runner/config.toml
+ExecStart=/usr/bin/backup-runner --port 8006
+Restart=on-abnormal
+RestartSec=500ms
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+NoNewPrivileges=maybe
+
+[Install]
+WantedBy=multi-user.target

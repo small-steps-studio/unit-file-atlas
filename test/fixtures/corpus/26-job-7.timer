@@ -1,0 +1,9 @@
+[Unit]
+Description=Nightly feed-importer run
+
+[Timer]
+OnCalendar=daily
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target

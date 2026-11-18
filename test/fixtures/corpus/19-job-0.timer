@@ -1,0 +1,9 @@
+[Unit]
+Description=Nightly orders-api run
+
+[Timer]
+OnCalendar=daily
+RandomizedDelaySec=10m
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,14 @@
+[Unit]
+Description=ExecStart several
+
+[Service]
+ExecStart=/usr/bin/one
+ExecStart=/usr/bin/two
+ExecStart=
+ExecStart=/usr/bin/three
+ExecStart=/usr/bin/four
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

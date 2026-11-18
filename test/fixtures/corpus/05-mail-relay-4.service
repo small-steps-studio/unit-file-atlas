@@ -1,0 +1,22 @@
+# mail-relay.service (invented example)
+[Unit]
+Description=mail relay service
+Requires=redis.service
+
+[Service]
+Type=idle
+User=svc-mail
+WorkingDirectory=/srv/mail-relay
+ExecStartPre=/usr/bin/test -f /etc/mail-relay/config.toml
+ExecStart=/usr/bin/mail-relay --port 8004
+Restart=on-abnormal
+TimeoutStartSec=30s
+ProtectHome=read-only
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+
+[Install]
+WantedBy=multi-user.target

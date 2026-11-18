@@ -1,0 +1,13 @@
+[Unit]
+Description=Search indexer
+After=network-online.target
+After=
+After=postgresql.service
+
+[Service]
+ExecStart=/usr/bin/indexer
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

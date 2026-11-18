@@ -1,0 +1,11 @@
+[Unit]
+Description=Restart delay reset
+
+[Service]
+ExecStart=/usr/bin/a
+Restart=always
+RestartSec=5s
+RestartSec=
+
+[Install]
+WantedBy=multi-user.target

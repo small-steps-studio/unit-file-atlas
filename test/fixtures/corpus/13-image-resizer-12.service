@@ -1,0 +1,18 @@
+# image-resizer.service (invented example)
+[Unit]
+Description=image resizer service
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=forking
+User=svc-image
+WorkingDirectory=/srv/image-resizer
+ExecStart=/usr/bin/image-resizer --port 8012
+Restart=on-abnormal
+RestartSec=2
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+Type=dbus
+
+[Install]
+WantedBy=multi-user.target

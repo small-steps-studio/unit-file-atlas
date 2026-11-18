@@ -1,0 +1,8 @@
+[Unit]
+Description=Nightly report-worker run
+
+[Timer]
+OnCalendar=Mon..Fri 07:30
+
+[Install]
+WantedBy=timers.target

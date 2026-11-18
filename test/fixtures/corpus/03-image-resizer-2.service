@@ -1,0 +1,14 @@
+# image-resizer.service (invented example)
+[Unit]
+Description=image resizer service
+Requires=redis.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/srv/image-resizer
+ExecStart=/usr/bin/image-resizer --port 8002
+ExecStart=/usr/bin/image-resizer-cleanup
+Restart=always
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=read-only

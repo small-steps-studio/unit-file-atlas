@@ -1,0 +1,9 @@
+[Service]
+ExecStart=/usr/bin/app
+Restart=on-failure
+RestartSec=2 h
+TimeoutStartSec=5 min
+TimeoutStopSec=55s500ms
+WatchdogSec=300ms20s 5day
+TimeoutSec=1min30s
+RuntimeMaxSec=10x

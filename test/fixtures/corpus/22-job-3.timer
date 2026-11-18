@@ -1,0 +1,9 @@
+[Unit]
+Description=Nightly cache-warmer run
+
+[Timer]
+OnCalendar=*-*-* 02:00:00
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target

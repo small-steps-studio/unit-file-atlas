@@ -1,0 +1,14 @@
+[Unit]
+Description=Image resizer
+
+[Service]
+ExecStart=/usr/bin/image-resizer \
+  # the next option is the size
+  --size 800 \
+; and the format
+  --format webp
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

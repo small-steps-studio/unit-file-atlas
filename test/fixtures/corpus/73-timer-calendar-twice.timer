@@ -1,0 +1,10 @@
+[Unit]
+Description=Timer twice
+
+[Timer]
+OnCalendar=Mon 07:00
+OnCalendar=Fri 17:00
+Persistent=false
+
+[Install]
+WantedBy=timers.target

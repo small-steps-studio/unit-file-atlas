@@ -1,0 +1,22 @@
+# cache-warmer.service (invented example)
+[Unit]
+Description=cache warmer service
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=dbus
+User=svc-cache
+WorkingDirectory=/srv/cache-warmer
+ExecStart=/usr/bin/cache-warmer --port 8013
+SystemCallFilter=@system-service
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+
+[Install]
+WantedBy=multi-user.target

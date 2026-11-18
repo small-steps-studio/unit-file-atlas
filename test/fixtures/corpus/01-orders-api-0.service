@@ -1,0 +1,20 @@
+# orders-api.service (invented example)
+[Unit]
+Description=orders api service
+After=network-online.target postgresql.service
+
+[Service]
+Type=idle
+User=svc-orders
+WorkingDirectory=/srv/orders-api
+ExecStart=/usr/bin/orders-api --port 8000
+Restart=no
+TimeoutStartSec=30s
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+; a comment with a semicolon

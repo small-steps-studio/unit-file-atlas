@@ -1,0 +1,28 @@
+# metrics-agent.service (invented example)
+[Unit]
+Description=metrics agent service
+After=network-online.target
+Requires=redis.service
+
+[Service]
+Type=idle
+User=svc-metrics
+WorkingDirectory=/srv/metrics-agent
+ExecStart=/usr/bin/metrics-agent --port 8015
+Restart=always
+RestartSec=2
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+RestrictRealtime=yes
+Type=dbus
+
+[Install]
+WantedBy=multi-user.target

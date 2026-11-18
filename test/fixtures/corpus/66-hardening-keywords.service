@@ -1,0 +1,15 @@
+[Unit]
+Description=Hardening keywords
+
+[Service]
+ExecStart=/usr/bin/a
+Restart=on-failure
+RestartSec=2
+PrivateTmp=disconnected
+ProtectControlGroups=strict
+SystemCallFilter=@system-service
+SystemCallFilter=
+CapabilityBoundingSet=
+
+[Install]
+WantedBy=multi-user.target
