@@ -1,0 +1,1243 @@
+{
+ "01-orders-api-0.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: orders api service.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 2 | 2 |\n| Service | 6 | 13 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| After | network-online.target, postgresql.service |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 10 | /usr/bin/orders-api --port 8000 |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n8 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | svc-orders | a non-root user or DynamicUser=yes | yes |\n| NoNewPrivileges | yes | yes | yes |\n| PrivateTmp | yes | yes | yes |\n| PrivateDevices | yes | yes | yes |\n| ProtectSystem | strict | strict | yes |\n| ProtectHome | read-only | yes | yes |\n| ProtectKernelTunables | yes | yes | yes |\n| ProtectKernelModules | yes | yes | yes |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n3 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 4 | Network ordering | After=network-online.target without Wants=network-online.target does not pull the target in |\n| 6 | Install section | no WantedBy= in [Install]: the unit cannot be enabled |\n| 11 | Restart policy | service is not restarted when it fails; consider Restart=on-failure |"
+  }
+ },
+ "02-report-worker-1.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: report worker service.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 2 | 3 |\n| Service | 7 | 15 |\n| Install | 24 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| Wants | network-online.target |\n| After | network-online.target |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStartPre | 11 | /usr/bin/test -f /etc/report-worker/config.toml |\n| ExecStart | 12 | /usr/bin/report-worker --port 8001 |\n| ExecStart | 13 | /usr/bin/report-worker-second |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\n1 problem found.\n\n| Line | Problem |\n| ---: | --- |\n| 22 | Type is set again (first on line 8); the last value wins |"
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\n1 invalid value.\n\n| Line | Problem |\n| ---: | --- |\n| 21 | NoNewPrivileges=maybe is not a boolean |"
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n7 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | svc-report | a non-root user or DynamicUser=yes | yes |\n| NoNewPrivileges | maybe | yes | no |\n| PrivateTmp | yes | yes | yes |\n| PrivateDevices | yes | yes | yes |\n| ProtectSystem | strict | strict | yes |\n| ProtectHome | read-only | yes | yes |\n| ProtectKernelTunables | yes | yes | yes |\n| ProtectKernelModules | yes | yes | yes |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n2 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 7 | Restart policy | service is not restarted when it fails; consider Restart=on-failure |\n| 13 | Several ExecStart | only Type=oneshot may have several ExecStart= lines |"
+  }
+ },
+ "03-image-resizer-2.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: image resizer service.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 2 | 2 |\n| Service | 6 | 8 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| Requires | redis.service |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 9 | /usr/bin/image-resizer --port 8002 |\n| ExecStart | 10 | /usr/bin/image-resizer-cleanup |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n3 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | yes | yes | yes |\n| ProtectSystem | strict | strict | yes |\n| ProtectHome | read-only | yes | yes |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n2 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 6 | Install section | no WantedBy= in [Install]: the unit cannot be enabled |\n| 11 | Restart delay | no RestartSec: restarts after 100 ms and may hit the start limit |"
+  }
+ },
+ "04-cache-warmer-3.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: cache warmer service.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 2 | 2 |\n| Service | 6 | 18 |\n| Install | 28 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| After | network-online.target |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStartPre | 11 | /usr/bin/test -f /etc/cache-warmer/config.toml |\n| ExecStart | 12 | /usr/bin/cache-warmer --config /etc/cache-warmer/config.toml --port 8003 |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n11 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | svc-cache | a non-root user or DynamicUser=yes | yes |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | strict | strict | yes |\n| ProtectHome | read-only | yes | yes |\n| ProtectKernelTunables | yes | yes | yes |\n| ProtectKernelModules | yes | yes | yes |\n| ProtectControlGroups | yes | yes | yes |\n| RestrictSUIDSGID | yes | yes | yes |\n| LockPersonality | yes | yes | yes |\n| MemoryDenyWriteExecute | yes | yes | yes |\n| RestrictRealtime | yes | yes | yes |\n| CapabilityBoundingSet | CAP\\_NET\\_BIND\\_SERVICE | only the capabilities the service needs | yes |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n2 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 4 | Network ordering | After=network-online.target without Wants=network-online.target does not pull the target in |\n| 15 | Restart delay | no RestartSec: restarts after 100 ms and may hit the start limit |"
+  }
+ },
+ "05-mail-relay-4.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: mail relay service.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 2 | 2 |\n| Service | 6 | 13 |\n| Install | 21 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| Requires | redis.service |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStartPre | 10 | /usr/bin/test -f /etc/mail-relay/config.toml |\n| ExecStart | 11 | /usr/bin/mail-relay --port 8004 |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n7 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | svc-mail | a non-root user or DynamicUser=yes | yes |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | read-only | yes | yes |\n| ProtectKernelTunables | yes | yes | yes |\n| ProtectKernelModules | yes | yes | yes |\n| ProtectControlGroups | yes | yes | yes |\n| RestrictSUIDSGID | yes | yes | yes |\n| LockPersonality | yes | yes | yes |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 12 | Restart delay | no RestartSec: restarts after 100 ms and may hit the start limit |"
+  }
+ },
+ "06-metrics-agent-5.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: metrics agent service.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 2 | 2 |\n| Service | 6 | 17 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| Requires | redis.service |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 10 | /usr/bin/metrics-agent --port 8005 |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\n1 invalid value.\n\n| Line | Problem |\n| ---: | --- |\n| 23 | NoNewPrivileges=maybe is not a boolean |"
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n11 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | svc-metrics | a non-root user or DynamicUser=yes | yes |\n| NoNewPrivileges | maybe | yes | no |\n| PrivateTmp | yes | yes | yes |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | yes | yes | yes |\n| ProtectKernelModules | yes | yes | yes |\n| ProtectControlGroups | yes | yes | yes |\n| RestrictSUIDSGID | yes | yes | yes |\n| LockPersonality | yes | yes | yes |\n| MemoryDenyWriteExecute | yes | yes | yes |\n| RestrictRealtime | yes | yes | yes |\n| CapabilityBoundingSet | CAP\\_NET\\_BIND\\_SERVICE | only the capabilities the service needs | yes |\n| SystemCallFilter | @system-service | @system-service | yes |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n2 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 6 | Install section | no WantedBy= in [Install]: the unit cannot be enabled |\n| 11 | Restart delay | no RestartSec: restarts after 100 ms and may hit the start limit |"
+  }
+ },
+ "07-backup-runner-6.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: backup runner service.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 2 | 2 |\n| Service | 6 | 11 |\n| Install | 19 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| Wants | network-online.target |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStartPre | 10 | /usr/bin/test -f /etc/backup-runner/config.toml |\n| ExecStart | 11 | /usr/bin/backup-runner --port 8006 |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\n1 invalid value.\n\n| Line | Problem |\n| ---: | --- |\n| 17 | NoNewPrivileges=maybe is not a boolean |"
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n3 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | root | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | maybe | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | yes | yes | yes |\n| ProtectControlGroups | yes | yes | yes |\n| RestrictSUIDSGID | yes | yes | yes |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "08-feed-importer-7.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: feed importer service.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 2 | 3 |\n| Service | 7 | 9 |\n| Install | 20 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| Wants | network-online.target |\n| After | network-online.target |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 12 | /usr/bin/feed-importer --config /etc/feed-importer/config.toml --port 8007 |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\n1 problem found.\n\n| Line | Problem |\n| ---: | --- |\n| 18 | Type is set again (first on line 8); the last value wins |"
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n2 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | root | a non-root user or DynamicUser=yes | yes |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | yes | yes | yes |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "09-search-indexer-8.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: search indexer service.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 2 | 4 |\n| Service | 8 | 13 |\n| Install | 23 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| Requires | redis.service |\n| Wants | network-online.target |\n| After | network-online.target |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 12 | /usr/bin/search-indexer --port 8008 |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\n1 invalid value.\n\n| Line | Problem |\n| ---: | --- |\n| 14 | TimeoutStartSec=forever is not a valid time span |"
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n8 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | svc-search | a non-root user or DynamicUser=yes | yes |\n| NoNewPrivileges | yes | yes | yes |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | yes | yes | yes |\n| LockPersonality | yes | yes | yes |\n| MemoryDenyWriteExecute | yes | yes | yes |\n| RestrictRealtime | yes | yes | yes |\n| CapabilityBoundingSet | CAP\\_NET\\_BIND\\_SERVICE | only the capabilities the service needs | yes |\n| SystemCallFilter | @system-service | @system-service | yes |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 13 | Restart policy | service is not restarted when it fails; consider Restart=on-failure |"
+  }
+ },
+ "10-webhook-gateway-9.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: webhook gateway service.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 2 | 1 |\n| Service | 5 | 19 |\n| Install | 26 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 9 | /usr/bin/webhook-gateway --port 8009 |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\n1 problem found.\n\n| Line | Problem |\n| ---: | --- |\n| 24 | Type is set again (first on line 6); the last value wins |"
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n14 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | svc-webhook | a non-root user or DynamicUser=yes | yes |\n| NoNewPrivileges | yes | yes | yes |\n| PrivateTmp | yes | yes | yes |\n| PrivateDevices | yes | yes | yes |\n| ProtectSystem | strict | strict | yes |\n| ProtectHome | read-only | yes | yes |\n| ProtectKernelTunables | yes | yes | yes |\n| ProtectKernelModules | yes | yes | yes |\n| ProtectControlGroups | yes | yes | yes |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | yes | yes | yes |\n| MemoryDenyWriteExecute | yes | yes | yes |\n| RestrictRealtime | yes | yes | yes |\n| CapabilityBoundingSet | CAP\\_NET\\_BIND\\_SERVICE | only the capabilities the service needs | yes |\n| SystemCallFilter | @system-service | @system-service | yes |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n2 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 10 | Restart policy | service is not restarted when it fails; consider Restart=on-failure |\n| 24 | Forking PID file | Type=forking without PIDFile; systemd may track the wrong process |"
+  }
+ },
+ "11-orders-api-10.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: orders api service.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 2 | 2 |\n| Service | 6 | 18 |\n| Install | 26 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| After | network-online.target |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 9 | /usr/bin/orders-api --port 8010 |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n13 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | yes | yes | yes |\n| PrivateTmp | yes | yes | yes |\n| PrivateDevices | yes | yes | yes |\n| ProtectSystem | strict | strict | yes |\n| ProtectHome | read-only | yes | yes |\n| ProtectKernelTunables | yes | yes | yes |\n| ProtectKernelModules | yes | yes | yes |\n| ProtectControlGroups | yes | yes | yes |\n| RestrictSUIDSGID | yes | yes | yes |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | yes | yes | yes |\n| RestrictRealtime | yes | yes | yes |\n| CapabilityBoundingSet | CAP\\_NET\\_BIND\\_SERVICE | only the capabilities the service needs | yes |\n| SystemCallFilter | @system-service | @system-service | yes |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 4 | Network ordering | After=network-online.target without Wants=network-online.target does not pull the target in |"
+  }
+ },
+ "12-report-worker-11.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: report worker service.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 2 | 4 |\n| Service | 8 | 8 |\n| Install | 18 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| Requires | redis.service |\n| Wants | network-online.target |\n| After | network-online.target |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 12 | /usr/bin/report-worker --port 8011 |\n| ExecStart | 13 | /usr/bin/report-worker-second |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n1 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | root | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | yes | yes | yes |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n2 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 13 | Several ExecStart | only Type=oneshot may have several ExecStart= lines |\n| 14 | Restart delay | no RestartSec: restarts after 100 ms and may hit the start limit |"
+  }
+ },
+ "13-image-resizer-12.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: image resizer service.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 2 | 3 |\n| Service | 7 | 8 |\n| Install | 17 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| Wants | network-online.target |\n| After | network-online.target, postgresql.service |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 11 | /usr/bin/image-resizer --port 8012 |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\n1 problem found.\n\n| Line | Problem |\n| ---: | --- |\n| 15 | Type is set again (first on line 8); the last value wins |"
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n2 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | svc-image | a non-root user or DynamicUser=yes | yes |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | CAP\\_NET\\_BIND\\_SERVICE | only the capabilities the service needs | yes |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "14-cache-warmer-13.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: cache warmer service.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 2 | 3 |\n| Service | 7 | 12 |\n| Install | 21 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| Wants | network-online.target |\n| After | network-online.target, postgresql.service |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 11 | /usr/bin/cache-warmer --port 8013 |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n9 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | svc-cache | a non-root user or DynamicUser=yes | yes |\n| NoNewPrivileges | yes | yes | yes |\n| PrivateTmp | yes | yes | yes |\n| PrivateDevices | yes | yes | yes |\n| ProtectSystem | strict | strict | yes |\n| ProtectHome | read-only | yes | yes |\n| ProtectKernelTunables | yes | yes | yes |\n| ProtectKernelModules | yes | yes | yes |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | @system-service | @system-service | yes |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 7 | Restart policy | service is not restarted when it fails; consider Restart=on-failure |"
+  }
+ },
+ "15-mail-relay-14.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: mail relay service.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 2 | 1 |\n| Service | 5 | 8 |\n| Install | 15 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 9 | /usr/bin/mail-relay --port 8014 |\n| ExecStart | 10 | /usr/bin/mail-relay-cleanup |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\n1 problem found.\n\n| Line | Problem |\n| ---: | --- |\n| 13 | Type is set again (first on line 6); the last value wins |"
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\n1 invalid value.\n\n| Line | Problem |\n| ---: | --- |\n| 11 | TimeoutStartSec=forever is not a valid time span |"
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n1 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | root | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | yes | yes | yes |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n2 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 5 | Restart policy | service is not restarted when it fails; consider Restart=on-failure |\n| 10 | Several ExecStart | only Type=oneshot may have several ExecStart= lines |"
+  }
+ },
+ "16-metrics-agent-15.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: metrics agent service.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 2 | 3 |\n| Service | 7 | 18 |\n| Install | 27 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| Requires | redis.service |\n| After | network-online.target |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 11 | /usr/bin/metrics-agent --port 8015 |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\n1 problem found.\n\n| Line | Problem |\n| ---: | --- |\n| 25 | Type is set again (first on line 8); the last value wins |"
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n12 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | svc-metrics | a non-root user or DynamicUser=yes | yes |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | yes | yes | yes |\n| PrivateDevices | yes | yes | yes |\n| ProtectSystem | strict | strict | yes |\n| ProtectHome | read-only | yes | yes |\n| ProtectKernelTunables | yes | yes | yes |\n| ProtectKernelModules | yes | yes | yes |\n| ProtectControlGroups | yes | yes | yes |\n| RestrictSUIDSGID | yes | yes | yes |\n| LockPersonality | yes | yes | yes |\n| MemoryDenyWriteExecute | yes | yes | yes |\n| RestrictRealtime | yes | yes | yes |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 4 | Network ordering | After=network-online.target without Wants=network-online.target does not pull the target in |"
+  }
+ },
+ "17-backup-runner-16.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: backup runner service.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 2 | 4 |\n| Service | 8 | 14 |\n| Install | 26 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| Requires | redis.service |\n| Wants | network-online.target |\n| After | network-online.target |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 12 | /usr/bin/backup-runner --config /etc/backup-runner/config.toml --port 8016 |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\n2 invalid values.\n\n| Line | Problem |\n| ---: | --- |\n| 16 | TimeoutStartSec=forever is not a valid time span |\n| 24 | NoNewPrivileges=maybe is not a boolean |"
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n8 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | svc-backup | a non-root user or DynamicUser=yes | yes |\n| NoNewPrivileges | maybe | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | yes | yes | yes |\n| ProtectSystem | strict | strict | yes |\n| ProtectHome | read-only | yes | yes |\n| ProtectKernelTunables | yes | yes | yes |\n| ProtectKernelModules | yes | yes | yes |\n| ProtectControlGroups | yes | yes | yes |\n| RestrictSUIDSGID | yes | yes | yes |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 15 | Restart delay | no RestartSec: restarts after 100 ms and may hit the start limit |"
+  }
+ },
+ "18-feed-importer-17.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: feed importer service.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 2 | 2 |\n| Service | 6 | 21 |\n| Install | 29 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| Wants | network-online.target |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStartPre | 10 | /usr/bin/test -f /etc/feed-importer/config.toml |\n| ExecStart | 11 | /usr/bin/feed-importer --port 8017 |\n| ExecStart | 12 | /usr/bin/feed-importer-cleanup |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\n1 invalid value.\n\n| Line | Problem |\n| ---: | --- |\n| 14 | RestartSec=10x is not a valid time span |"
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n13 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | svc-feed | a non-root user or DynamicUser=yes | yes |\n| NoNewPrivileges | yes | yes | yes |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | strict | strict | yes |\n| ProtectHome | read-only | yes | yes |\n| ProtectKernelTunables | yes | yes | yes |\n| ProtectKernelModules | yes | yes | yes |\n| ProtectControlGroups | yes | yes | yes |\n| RestrictSUIDSGID | yes | yes | yes |\n| LockPersonality | yes | yes | yes |\n| MemoryDenyWriteExecute | yes | yes | yes |\n| RestrictRealtime | yes | yes | yes |\n| CapabilityBoundingSet | CAP\\_NET\\_BIND\\_SERVICE | only the capabilities the service needs | yes |\n| SystemCallFilter | @system-service | @system-service | yes |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 14 | Restart delay | RestartSec=10x is not a valid time span: the default of 100 ms applies and the service may hit the start limit |"
+  }
+ },
+ "19-job-0.timer": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\ntimer unit: Nightly orders-api run.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Timer | 4 | 2 |\n| Install | 8 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | timers.target |\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 5 | Missed timer runs | OnCalendar timer without Persistent=true skips runs missed while the machine was off |"
+  }
+ },
+ "20-job-1.timer": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\ntimer unit: Nightly report-worker run.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Timer | 4 | 1 |\n| Install | 7 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | timers.target |\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 5 | Missed timer runs | OnCalendar timer without Persistent=true skips runs missed while the machine was off |"
+  }
+ },
+ "21-job-2.timer": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\ntimer unit: Nightly image-resizer run.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Timer | 4 | 1 |\n| Install | 7 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | timers.target |\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 5 | Missed timer runs | OnCalendar timer without Persistent=true skips runs missed while the machine was off |"
+  }
+ },
+ "22-job-3.timer": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\ntimer unit: Nightly cache-warmer run.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Timer | 4 | 2 |\n| Install | 8 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | timers.target |\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 5 | Missed timer runs | OnCalendar timer without Persistent=true skips runs missed while the machine was off |"
+  }
+ },
+ "23-job-4.timer": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\ntimer unit: Nightly mail-relay run.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Timer | 4 | 2 |\n| Install | 8 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | timers.target |\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "24-job-5.timer": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\ntimer unit: Nightly metrics-agent run.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Timer | 4 | 1 |\n| Install | 7 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | timers.target |\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 5 | Missed timer runs | OnCalendar timer without Persistent=true skips runs missed while the machine was off |"
+  }
+ },
+ "25-job-6.timer": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\ntimer unit: Nightly backup-runner run.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Timer | 4 | 1 |\n\n## Dependencies\n\nNo dependencies declared.\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n2 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 4 | Install section | no WantedBy= in [Install]: the unit cannot be enabled |\n| 5 | Missed timer runs | OnCalendar timer without Persistent=true skips runs missed while the machine was off |"
+  }
+ },
+ "26-job-7.timer": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\ntimer unit: Nightly feed-importer run.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Timer | 4 | 2 |\n| Install | 8 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | timers.target |\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 5 | Missed timer runs | OnCalendar timer without Persistent=true skips runs missed while the machine was off |"
+  }
+ },
+ "27-web.socket": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nsocket unit: Web socket.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Socket | 4 | 2 |\n| Install | 8 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | sockets.target |\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "28-spool.path": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\npath unit: Watch the spool folder.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Path | 4 | 1 |\n\n## Dependencies\n\nNo dependencies declared.\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 4 | Install section | no WantedBy= in [Install]: the unit cannot be enabled |"
+  }
+ },
+ "29-data.mount": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nmount unit: Data disk.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Mount | 4 | 4 |\n| Install | 10 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | multi-user.target |\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "30-batch.slice": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nslice unit: Batch jobs.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Slice | 4 | 1 |\n\n## Dependencies\n\nNo dependencies declared.\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "31-drop-in.conf": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Service | 1 | 2 |\n\n## Dependencies\n\nNo dependencies declared.\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n2 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 1 | Install section | no WantedBy= in [Install]: the unit cannot be enabled |\n| 3 | Restart delay | no RestartSec: restarts after 100 ms and may hit the start limit |"
+  }
+ },
+ "32-x-section.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: Custom keys.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Service | 3 | 1 |\n| X-Vendor | 5 | 1 |\n\n## Dependencies\n\nNo dependencies declared.\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 4 | /usr/bin/true |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n2 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 3 | Restart policy | service is not restarted when it fails; consider Restart=on-failure |\n| 3 | Install section | no WantedBy= in [Install]: the unit cannot be enabled |"
+  }
+ },
+ "33-crlf.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: cache warmer service.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 2 | 1 |\n| Service | 5 | 15 |\n\n## Dependencies\n\nNo dependencies declared.\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 8 | /usr/bin/cache-warmer --port 8003 |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n11 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | strict | strict | yes |\n| ProtectHome | read-only | yes | yes |\n| ProtectKernelTunables | yes | yes | yes |\n| ProtectKernelModules | yes | yes | yes |\n| ProtectControlGroups | yes | yes | yes |\n| RestrictSUIDSGID | yes | yes | yes |\n| LockPersonality | yes | yes | yes |\n| MemoryDenyWriteExecute | yes | yes | yes |\n| RestrictRealtime | yes | yes | yes |\n| CapabilityBoundingSet | CAP\\_NET\\_BIND\\_SERVICE | only the capabilities the service needs | yes |\n| SystemCallFilter | @system-service | @system-service | yes |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n2 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 5 | Install section | no WantedBy= in [Install]: the unit cannot be enabled |\n| 9 | Restart delay | no RestartSec: restarts after 100 ms and may hit the start limit |"
+  }
+ },
+ "34-bom.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: mail relay service.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 2 | 3 |\n| Service | 7 | 18 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| Requires | redis.service |\n| After | network-online.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 11 | /usr/bin/mail-relay --port 8004 |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n14 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | svc-mail | a non-root user or DynamicUser=yes | yes |\n| NoNewPrivileges | yes | yes | yes |\n| PrivateTmp | yes | yes | yes |\n| PrivateDevices | yes | yes | yes |\n| ProtectSystem | - | strict | no |\n| ProtectHome | read-only | yes | yes |\n| ProtectKernelTunables | yes | yes | yes |\n| ProtectKernelModules | yes | yes | yes |\n| ProtectControlGroups | yes | yes | yes |\n| RestrictSUIDSGID | yes | yes | yes |\n| LockPersonality | yes | yes | yes |\n| MemoryDenyWriteExecute | yes | yes | yes |\n| RestrictRealtime | yes | yes | yes |\n| CapabilityBoundingSet | CAP\\_NET\\_BIND\\_SERVICE | only the capabilities the service needs | yes |\n| SystemCallFilter | @system-service | @system-service | yes |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n3 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 4 | Network ordering | After=network-online.target without Wants=network-online.target does not pull the target in |\n| 7 | Install section | no WantedBy= in [Install]: the unit cannot be enabled |\n| 12 | Restart policy | service is not restarted when it fails; consider Restart=on-failure |"
+  }
+ },
+ "35-typo-section.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nunknown unit: fine.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Servce | 2 | 0 |\n| Unit | 4 | 1 |\n\n## Dependencies\n\nNo dependencies declared.\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\n3 problems found.\n\n| Line | Problem |\n| ---: | --- |\n| 1 | line outside a section |\n| 2 | unknown section [Servce] |\n| 3 | not a key=value line |"
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "36-hardened.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: Fully hardened.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Service | 3 | 19 |\n| Install | 23 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 6 | /usr/bin/app |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n15 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | yes |\n| NoNewPrivileges | yes | yes | yes |\n| PrivateTmp | yes | yes | yes |\n| PrivateDevices | yes | yes | yes |\n| ProtectSystem | strict | strict | yes |\n| ProtectHome | read-only | yes | yes |\n| ProtectKernelTunables | yes | yes | yes |\n| ProtectKernelModules | yes | yes | yes |\n| ProtectControlGroups | yes | yes | yes |\n| RestrictSUIDSGID | yes | yes | yes |\n| LockPersonality | yes | yes | yes |\n| MemoryDenyWriteExecute | yes | yes | yes |\n| RestrictRealtime | yes | yes | yes |\n| CapabilityBoundingSet | CAP\\_NET\\_BIND\\_SERVICE | only the capabilities the service needs | yes |\n| SystemCallFilter | @system-service | @system-service | yes |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "37-empty.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nThe file contains no unit sections."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nThe file contains no unit sections."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nThe file contains no unit sections."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nThe file contains no unit sections."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nThe file contains no unit sections."
+  }
+ },
+ "38-only-comments.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nThe file contains no unit sections."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nThe file contains no unit sections."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nThe file contains no unit sections."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nThe file contains no unit sections."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nThe file contains no unit sections."
+  }
+ },
+ "39-not-a-unit.txt": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nThe file contains no unit sections."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nThe file contains no unit sections."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nThe file contains no unit sections."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nThe file contains no unit sections."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nThe file contains no unit sections."
+  }
+ },
+ "40-continuation-at-end.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Service | 1 | 1 |\n\n## Dependencies\n\nNo dependencies declared.\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 2 | /usr/bin/app |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n2 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 1 | Restart policy | service is not restarted when it fails; consider Restart=on-failure |\n| 1 | Install section | no WantedBy= in [Install]: the unit cannot be enabled |"
+  }
+ },
+ "41-empty-values.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Service | 1 | 4 |\n\n## Dependencies\n\nNo dependencies declared.\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 2 | - |\n| ExecStart | 3 | /usr/bin/app |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n2 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 1 | Restart policy | service is not restarted when it fails; consider Restart=on-failure |\n| 1 | Install section | no WantedBy= in [Install]: the unit cannot be enabled |"
+  }
+ },
+ "42-many-sections.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| X-Part0 | 1 | 1 |\n| X-Part1 | 3 | 1 |\n| X-Part2 | 5 | 1 |\n| X-Part3 | 7 | 1 |\n| X-Part4 | 9 | 1 |\n| X-Part5 | 11 | 1 |\n| X-Part6 | 13 | 1 |\n| X-Part7 | 15 | 1 |\n| X-Part8 | 17 | 1 |\n| X-Part9 | 19 | 1 |\n| X-Part10 | 21 | 1 |\n| X-Part11 | 23 | 1 |\n| X-Part12 | 25 | 1 |\n| X-Part13 | 27 | 1 |\n| X-Part14 | 29 | 1 |\n| X-Part15 | 31 | 1 |\n| X-Part16 | 33 | 1 |\n| X-Part17 | 35 | 1 |\n| X-Part18 | 37 | 1 |\n| X-Part19 | 39 | 1 |\n| X-Part20 | 41 | 1 |\n| X-Part21 | 43 | 1 |\n| X-Part22 | 45 | 1 |\n| X-Part23 | 47 | 1 |\n| X-Part24 | 49 | 1 |\n| X-Part25 | 51 | 1 |\n| X-Part26 | 53 | 1 |\n| X-Part27 | 55 | 1 |\n| X-Part28 | 57 | 1 |\n| X-Part29 | 59 | 1 |\n| X-Part30 | 61 | 1 |\n| X-Part31 | 63 | 1 |\n| X-Part32 | 65 | 1 |\n| X-Part33 | 67 | 1 |\n| X-Part34 | 69 | 1 |\n| X-Part35 | 71 | 1 |\n| X-Part36 | 73 | 1 |\n| X-Part37 | 75 | 1 |\n| X-Part38 | 77 | 1 |\n| X-Part39 | 79 | 1 |\n| X-Part40 | 81 | 1 |\n| X-Part41 | 83 | 1 |\n| X-Part42 | 85 | 1 |\n| X-Part43 | 87 | 1 |\n| X-Part44 | 89 | 1 |\n| X-Part45 | 91 | 1 |\n| X-Part46 | 93 | 1 |\n| X-Part47 | 95 | 1 |\n| X-Part48 | 97 | 1 |\n| X-Part49 | 99 | 1 |\n| X-Part50 | 101 | 1 |\n| X-Part51 | 103 | 1 |\n| X-Part52 | 105 | 1 |\n| X-Part53 | 107 | 1 |\n| X-Part54 | 109 | 1 |\n| X-Part55 | 111 | 1 |\n| X-Part56 | 113 | 1 |\n| X-Part57 | 115 | 1 |\n| X-Part58 | 117 | 1 |\n| X-Part59 | 119 | 1 |\n| X-Part60 | 121 | 1 |\n| X-Part61 | 123 | 1 |\n| X-Part62 | 125 | 1 |\n| X-Part63 | 127 | 1 |\n| X-Part64 | 129 | 1 |\n| X-Part65 | 131 | 1 |\n| X-Part66 | 133 | 1 |\n| X-Part67 | 135 | 1 |\n| X-Part68 | 137 | 1 |\n| X-Part69 | 139 | 1 |\n| X-Part70 | 141 | 1 |\n| X-Part71 | 143 | 1 |\n| X-Part72 | 145 | 1 |\n| X-Part73 | 147 | 1 |\n| X-Part74 | 149 | 1 |\n| X-Part75 | 151 | 1 |\n| X-Part76 | 153 | 1 |\n| X-Part77 | 155 | 1 |\n| X-Part78 | 157 | 1 |\n| X-Part79 | 159 | 1 |\n| X-Part80 | 161 | 1 |\n| X-Part81 | 163 | 1 |\n| X-Part82 | 165 | 1 |\n| X-Part83 | 167 | 1 |\n| X-Part84 | 169 | 1 |\n| X-Part85 | 171 | 1 |\n| X-Part86 | 173 | 1 |\n| X-Part87 | 175 | 1 |\n| X-Part88 | 177 | 1 |\n| X-Part89 | 179 | 1 |\n| X-Part90 | 181 | 1 |\n| X-Part91 | 183 | 1 |\n| X-Part92 | 185 | 1 |\n| X-Part93 | 187 | 1 |\n| X-Part94 | 189 | 1 |\n| X-Part95 | 191 | 1 |\n| X-Part96 | 193 | 1 |\n| X-Part97 | 195 | 1 |\n| X-Part98 | 197 | 1 |\n| X-Part99 | 199 | 1 |\n| X-Part100 | 201 | 1 |\n| X-Part101 | 203 | 1 |\n| X-Part102 | 205 | 1 |\n| X-Part103 | 207 | 1 |\n| X-Part104 | 209 | 1 |\n| X-Part105 | 211 | 1 |\n| X-Part106 | 213 | 1 |\n| X-Part107 | 215 | 1 |\n| X-Part108 | 217 | 1 |\n| X-Part109 | 219 | 1 |\n| X-Part110 | 221 | 1 |\n| X-Part111 | 223 | 1 |\n| X-Part112 | 225 | 1 |\n| X-Part113 | 227 | 1 |\n| X-Part114 | 229 | 1 |\n| X-Part115 | 231 | 1 |\n| X-Part116 | 233 | 1 |\n| X-Part117 | 235 | 1 |\n| X-Part118 | 237 | 1 |\n| X-Part119 | 239 | 1 |\n| X-Part120 | 241 | 1 |\n| X-Part121 | 243 | 1 |\n| X-Part122 | 245 | 1 |\n| X-Part123 | 247 | 1 |\n| X-Part124 | 249 | 1 |\n| X-Part125 | 251 | 1 |\n| X-Part126 | 253 | 1 |\n| X-Part127 | 255 | 1 |\n| X-Part128 | 257 | 1 |\n| X-Part129 | 259 | 1 |\n| X-Part130 | 261 | 1 |\n| X-Part131 | 263 | 1 |\n| X-Part132 | 265 | 1 |\n| X-Part133 | 267 | 1 |\n| X-Part134 | 269 | 1 |\n| X-Part135 | 271 | 1 |\n| X-Part136 | 273 | 1 |\n| X-Part137 | 275 | 1 |\n| X-Part138 | 277 | 1 |\n| X-Part139 | 279 | 1 |\n| X-Part140 | 281 | 1 |\n| X-Part141 | 283 | 1 |\n| X-Part142 | 285 | 1 |\n| X-Part143 | 287 | 1 |\n| X-Part144 | 289 | 1 |\n| X-Part145 | 291 | 1 |\n| X-Part146 | 293 | 1 |\n| X-Part147 | 295 | 1 |\n| X-Part148 | 297 | 1 |\n| X-Part149 | 299 | 1 |\n| X-Part150 | 301 | 1 |\n| X-Part151 | 303 | 1 |\n| X-Part152 | 305 | 1 |\n| X-Part153 | 307 | 1 |\n| X-Part154 | 309 | 1 |\n| X-Part155 | 311 | 1 |\n| X-Part156 | 313 | 1 |\n| X-Part157 | 315 | 1 |\n| X-Part158 | 317 | 1 |\n| X-Part159 | 319 | 1 |\n| X-Part160 | 321 | 1 |\n| X-Part161 | 323 | 1 |\n| X-Part162 | 325 | 1 |\n| X-Part163 | 327 | 1 |\n| X-Part164 | 329 | 1 |\n| X-Part165 | 331 | 1 |\n| X-Part166 | 333 | 1 |\n| X-Part167 | 335 | 1 |\n| X-Part168 | 337 | 1 |\n| X-Part169 | 339 | 1 |\n| X-Part170 | 341 | 1 |\n| X-Part171 | 343 | 1 |\n| X-Part172 | 345 | 1 |\n| X-Part173 | 347 | 1 |\n| X-Part174 | 349 | 1 |\n| X-Part175 | 351 | 1 |\n| X-Part176 | 353 | 1 |\n| X-Part177 | 355 | 1 |\n| X-Part178 | 357 | 1 |\n| X-Part179 | 359 | 1 |\n| X-Part180 | 361 | 1 |\n| X-Part181 | 363 | 1 |\n| X-Part182 | 365 | 1 |\n| X-Part183 | 367 | 1 |\n| X-Part184 | 369 | 1 |\n| X-Part185 | 371 | 1 |\n| X-Part186 | 373 | 1 |\n| X-Part187 | 375 | 1 |\n| X-Part188 | 377 | 1 |\n| X-Part189 | 379 | 1 |\n| X-Part190 | 381 | 1 |\n| X-Part191 | 383 | 1 |\n| X-Part192 | 385 | 1 |\n| X-Part193 | 387 | 1 |\n| X-Part194 | 389 | 1 |\n| X-Part195 | 391 | 1 |\n| X-Part196 | 393 | 1 |\n| X-Part197 | 395 | 1 |\n| X-Part198 | 397 | 1 |\n| X-Part199 | 399 | 1 |\n| Service | 401 | 1 |\n\n## Dependencies\n\nNo dependencies declared.\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 402 | /usr/bin/x |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n2 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 401 | Restart policy | service is not restarted when it fails; consider Restart=on-failure |\n| 401 | Install section | no WantedBy= in [Install]: the unit cannot be enabled |"
+  }
+ },
+ "43-crlf-continuation.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: Report worker.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Service | 4 | 4 |\n| Install | 12 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 6 | /usr/bin/report-worker --queue nightly --threads 4 |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "44-comment-in-continuation.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: Image resizer.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Service | 4 | 3 |\n| Install | 13 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 5 | /usr/bin/image-resizer --size 800 --format webp |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "45-accumulated-after-wants.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: Mail relay.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 7 |\n| Service | 10 | 3 |\n| Install | 15 | 2 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| Wants | redis.service, network-online.target |\n| After | network.target, network-online.target, postgresql.service |\n| Before | mail-queue.service |\n| WantedBy | multi-user.target, graphical.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 11 | /usr/bin/mail-relay |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "46-network-whole-name.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: Webhook gateway.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 4 |\n| Service | 7 | 3 |\n| Install | 12 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| Wants | network-online.target.d |\n| After | network-online.target.wants, my-network-online.target |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 8 | /usr/bin/gateway |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "47-after-reset.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: Search indexer.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 4 |\n| Service | 7 | 3 |\n| Install | 12 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| After | postgresql.service |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 8 | /usr/bin/indexer |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "48-network-bindsto.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: Feed importer.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 3 |\n| Service | 6 | 3 |\n| Install | 11 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| BindsTo | network-online.target |\n| After | network-online.target |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 7 | /usr/bin/importer |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "49-override.conf": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Service | 1 | 6 |\n\n## Dependencies\n\nNo dependencies declared.\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 2 | - |\n| ExecStart | 3 | /usr/bin/orders-api --port 9000 |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\n1 invalid value.\n\n| Line | Problem |\n| ---: | --- |\n| 6 | RestartSec=oops is not a valid time span |"
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n1 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | yes | yes | yes |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n2 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 1 | Install section | no WantedBy= in [Install]: the unit cannot be enabled |\n| 6 | Restart delay | RestartSec=oops is not a valid time span: the default of 100 ms applies and the service may hit the start limit |"
+  }
+ },
+ "50-timer-override.conf": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\ntimer unit: Moved to 03:00.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Timer | 4 | 2 |\n\n## Dependencies\n\nNo dependencies declared.\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n2 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 4 | Install section | no WantedBy= in [Install]: the unit cannot be enabled |\n| 6 | Missed timer runs | OnCalendar timer without Persistent=true skips runs missed while the machine was off |"
+  }
+ },
+ "51-empty-note.conf": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nThe file contains no unit sections."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nThe file contains no unit sections."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nThe file contains no unit sections."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nThe file contains no unit sections."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nThe file contains no unit sections."
+  }
+ },
+ "52-data-ext4.mount": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nmount unit: Data volume.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Mount | 4 | 4 |\n| Install | 10 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | multi-user.target |\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "53-scratch.swap": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nswap unit: Scratch swap.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Swap | 4 | 4 |\n| Install | 10 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | swap.target |\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "54-service-type-bad.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: Bad types.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Service | 4 | 3 |\n| Install | 9 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 7 | /usr/bin/x |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\n2 invalid values.\n\n| Line | Problem |\n| ---: | --- |\n| 5 | Type=ext4 is not a valid service type |\n| 6 | Restart=sometimes is not a valid restart setting |"
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 6 | Restart delay | no RestartSec: restarts after 100 ms and may hit the start limit |"
+  }
+ },
+ "55-timespans.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Service | 1 | 8 |\n\n## Dependencies\n\nNo dependencies declared.\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 2 | /usr/bin/app |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 1 | Install section | no WantedBy= in [Install]: the unit cannot be enabled |"
+  }
+ },
+ "56-timespans-more.timer": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\ntimer unit.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Timer | 1 | 6 |\n\n## Dependencies\n\nNo dependencies declared.\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 1 | Install section | no WantedBy= in [Install]: the unit cannot be enabled |"
+  }
+ },
+ "57-timespans-bad.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Service | 1 | 9 |\n\n## Dependencies\n\nNo dependencies declared.\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 2 | /usr/bin/app |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\n8 invalid values.\n\n| Line | Problem |\n| ---: | --- |\n| 3 | RestartSec=1.s is not a valid time span |\n| 4 | TimeoutStartSec=.5s is not a valid time span |\n| 5 | TimeoutStopSec=-5s is not a valid time span |\n| 6 | WatchdogSec=5 fortnights is not a valid time span |\n| 7 | TimeoutSec=Infinity is not a valid time span |\n| 8 | OnBootSec=1m in is not a valid time span |\n| 9 | OnUnitActiveSec=s is not a valid time span |\n| 10 | OnActiveSec=1,5s is not a valid time span |"
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n2 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 1 | Restart policy | service is not restarted when it fails; consider Restart=on-failure |\n| 1 | Install section | no WantedBy= in [Install]: the unit cannot be enabled |"
+  }
+ },
+ "58-restart-delay.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: Restart delay.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Service | 4 | 3 |\n| Install | 9 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 5 | /usr/bin/a |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\n1 invalid value.\n\n| Line | Problem |\n| ---: | --- |\n| 7 | RestartSec=10x is not a valid time span |"
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 7 | Restart delay | RestartSec=10x is not a valid time span: the default of 100 ms applies and the service may hit the start limit |"
+  }
+ },
+ "59-restart-delay-missing.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: Restart delay missing.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Service | 4 | 2 |\n| Install | 8 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 5 | /usr/bin/a |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 6 | Restart delay | no RestartSec: restarts after 100 ms and may hit the start limit |"
+  }
+ },
+ "60-restart-delay-reset.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: Restart delay reset.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Service | 4 | 4 |\n| Install | 10 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 5 | /usr/bin/a |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\n1 problem found.\n\n| Line | Problem |\n| ---: | --- |\n| 8 | RestartSec is set again (first on line 7); the last value wins |"
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 6 | Restart delay | no RestartSec: restarts after 100 ms and may hit the start limit |"
+  }
+ },
+ "61-restart-no.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: No restart.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Service | 4 | 3 |\n| Install | 9 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 5 | /usr/bin/a |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\n1 invalid value.\n\n| Line | Problem |\n| ---: | --- |\n| 7 | RestartSec=bogus is not a valid time span |"
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 6 | Restart policy | service is not restarted when it fails; consider Restart=on-failure |"
+  }
+ },
+ "62-execstart-reset.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: ExecStart reset.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Service | 4 | 5 |\n| Install | 11 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 5 | /usr/bin/one |\n| ExecStart | 6 | - |\n| ExecStart | 7 | /usr/bin/two |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "63-execstart-several.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: ExecStart several.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Service | 4 | 7 |\n| Install | 13 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 5 | /usr/bin/one |\n| ExecStart | 6 | /usr/bin/two |\n| ExecStart | 7 | - |\n| ExecStart | 8 | /usr/bin/three |\n| ExecStart | 9 | /usr/bin/four |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 9 | Several ExecStart | only Type=oneshot may have several ExecStart= lines |"
+  }
+ },
+ "64-repeated-sections.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: Merged sections again.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 2 |\n| Service | 5 | 2 |\n| Unit | 9 | 2 |\n| Service | 13 | 4 |\n| Install | 19 | 1 |\n| Install | 22 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| Wants | network-online.target |\n| After | network-online.target |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 7 | /usr/bin/daemon |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "65-empty-install.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: Install without a target.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Service | 4 | 3 |\n| Install | 9 | 2 |\n\n## Dependencies\n\nNo dependencies declared.\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 5 | /usr/bin/a |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 9 | Install section | no WantedBy= in [Install]: the unit cannot be enabled |"
+  }
+ },
+ "66-hardening-keywords.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: Hardening keywords.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Service | 4 | 8 |\n| Install | 14 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 5 | /usr/bin/a |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n3 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | disconnected | yes | yes |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | strict | yes | yes |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | yes |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "67-hardening-private-cgroups.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Service | 1 | 4 |\n\n## Dependencies\n\nNo dependencies declared.\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 2 | /usr/bin/a |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\n2 invalid values.\n\n| Line | Problem |\n| ---: | --- |\n| 3 | PrivateTmp=sometimes is not a boolean or disconnected |\n| 5 | ProtectKernelTunables=disconnected is not a boolean |"
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n1 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | sometimes | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | disconnected | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | private | yes | yes |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n2 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 1 | Restart policy | service is not restarted when it fails; consider Restart=on-failure |\n| 1 | Install section | no WantedBy= in [Install]: the unit cannot be enabled |"
+  }
+ },
+ "68-stack.target": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nunknown unit: The whole stack is up.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 3 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| Requires | multi-user.target |\n| After | multi-user.target |\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "69-stack-wants.target": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nunknown unit: Everything reachable\\!\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 2 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| Wants | web.service, worker.service |\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "70-question.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: Is it running?\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Service | 4 | 3 |\n| Install | 9 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | multi-user.target |\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 5 | /usr/bin/probe |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "71-junk-before-section.service": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\nservice unit: fine.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 3 | 1 |\n| Service | 5 | 1 |\n\n## Dependencies\n\nNo dependencies declared.\n\n## Commands\n\n| Directive | Line | Command |\n| --- | ---: | --- |\n| ExecStart | 6 | /usr/bin/a |"
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\n3 problems found.\n\n| Line | Problem |\n| ---: | --- |\n| 1 | line outside a section |\n| 2 | line outside a section |\n| 7 | not a key=value line |"
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\n0 of 15 hardening settings applied.\n\n| Setting | Current | Recommended | Applied |\n| --- | --- | --- | --- |\n| User | - | a non-root user or DynamicUser=yes | no |\n| NoNewPrivileges | - | yes | no |\n| PrivateTmp | - | yes | no |\n| PrivateDevices | - | yes | no |\n| ProtectSystem | - | strict | no |\n| ProtectHome | - | yes | no |\n| ProtectKernelTunables | - | yes | no |\n| ProtectKernelModules | - | yes | no |\n| ProtectControlGroups | - | yes | no |\n| RestrictSUIDSGID | - | yes | no |\n| LockPersonality | - | yes | no |\n| MemoryDenyWriteExecute | - | yes | no |\n| RestrictRealtime | - | yes | no |\n| CapabilityBoundingSet | - | only the capabilities the service needs | no |\n| SystemCallFilter | - | @system-service | no |"
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n2 findings.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 5 | Restart policy | service is not restarted when it fails; consider Restart=on-failure |\n| 5 | Install section | no WantedBy= in [Install]: the unit cannot be enabled |"
+  }
+ },
+ "72-timer-reset.timer": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\ntimer unit: Timer reset.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Timer | 4 | 3 |\n| Install | 9 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | timers.target |\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\nNo findings."
+  }
+ },
+ "73-timer-calendar-twice.timer": {
+  "reportOverview": {
+   "exact": "# Unit Overview\n\ntimer unit: Timer twice.\n\n| Section | Line | Entries |\n| --- | ---: | ---: |\n| Unit | 1 | 1 |\n| Timer | 4 | 3 |\n| Install | 9 | 1 |\n\n## Dependencies\n\n| Directive | Units |\n| --- | --- |\n| WantedBy | timers.target |\n\n## Commands\n\nNo commands."
+  },
+  "reportSyntax": {
+   "exact": "# Syntax Check\n\nNo problems found."
+  },
+  "reportValues": {
+   "exact": "# Value Check\n\nAll checked values are valid."
+  },
+  "reportHardening": {
+   "exact": "# Service Hardening\n\nHardening applies to service units only."
+  },
+  "reportReliability": {
+   "exact": "# Reliability Check\n\n1 finding.\n\n| Line | Rule | Finding |\n| ---: | --- | --- |\n| 5 | Missed timer runs | OnCalendar timer without Persistent=true skips runs missed while the machine was off |"
+  }
+ }
+}
